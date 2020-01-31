@@ -1,8 +1,11 @@
 # Configuration
 
-Этот раздел содержит множество подразделов, посвященных настройке каждого аспекта Asterisk. Помимо того, что описано в разделе [Core Configuration](#core-configuration), большинство особенностей и функций предоставляются модулями, которые могут быть установлены или не установлены в системе Asterisk. Встроенная документация по конфигурации для каждого модуля (который имеет документацию) может быть доступна через CLI Asterisk. В разделе [CLI Syntax] и [Help Commands] содержатся дополнительные сведения о доступе к справке по конфигурации модуля.
+Этот раздел содержит множество подразделов, посвященных настройке каждого аспекта Asterisk. Помимо того, что описано в разделе [Core Configuration](#core-configuration), большинство особенностей и функций предоставляются модулями, которые могут быть установлены или не установлены в системе Asterisk. Встроенная документация по конфигурации для каждого модуля (который имеет документацию) может быть доступна через [CLI Asterisk](operation.md#asterisk-command-line-interface). В разделе [CLI Syntax and Help Commands](operation.md#cli-syntax-and-help-commands) содержатся дополнительные сведения о доступе к справке по конфигурации модуля.
 
 ## Core Configuration
+
+The sub-pages here cover any possible configuration of Asterisk's core. That is, functionality which is not separated out into modules.
+If you are unfamiliar with the core and modules concepts, take a look at the Asterisk Architecture section.
 
 ## Channel Drivers
 
@@ -41,12 +44,12 @@ exten => 1000,hint,PJSIP/alice
 Существует два варианта конечных точек, влияющих на наличие подписок в `pjsip.conf`. Параметр `allow_subscribe` определяет, разрешено ли Asterisk получать запросы на подписку от конечной точки. По умолчанию функция `allow_subscribe` включена. Другим параметром, влияющим на подписку на присутствие, является параметр `context`. Этот параметр используется для определения контекста диалплана, в котором следует искать подписываемое расширение. Учитывая приведенный выше фрагмент диалплана, если конечная точка, которая подписывается на расширение 1000, должна подписаться на подсказку 1000@default, то контекст подписывающейся конечной точки должен быть установлен в "default". Обратите внимание, что если параметр `context` имеет значение, отличное от "default", то Asterisk будет искать подсказку в том контексте.
 
 Для правильной работы подписок на присутствие необходимо загрузить некоторые модули. Вот список необходимых модулей:
-* res_pjsip.so: Ядро кода PJSIP в Asterisk.
-* res_pjsip_pubsub.so: код, реализующий логику SUBSCRIBE/NOTIFY, на основе которой строятся отдельные обработчики событий.
-* res_pjsip_exten_state.so: обрабатывает события "presence" и "dialog".
-* res_pjsip_pidf_body_generator.so: этот модуль генерирует тела сообщений application/pidf+xml. Требуется для большинства подписок на событие "presence".
-* res_pjsip_xpidf_body_generator.so: этот модуль генерирует тела сообщений application/xpidf+xml. Требуется для некоторых подписок на событие "presence".
-* res_pjsip_dialog_info_body_generator.so: требуется для подписки на событие "dialog". Этот модуль генерирует тела сообщений application/dialog-info.
+* `res_pjsip.so`: Ядро кода PJSIP в Asterisk.
+* `res_pjsip_pubsub.so`: код, реализующий логику SUBSCRIBE/NOTIFY, на основе которой строятся отдельные обработчики событий.
+* `res_pjsip_exten_state.so`: обрабатывает события "presence" и "dialog".
+* `res_pjsip_pidf_body_generator.so`: этот модуль генерирует тела сообщений application/pidf+xml. Требуется для большинства подписок на событие "presence".
+* `res_pjsip_xpidf_body_generator.so`: этот модуль генерирует тела сообщений application/xpidf+xml. Требуется для некоторых подписок на событие "presence".
+* `res_pjsip_dialog_info_body_generator.so`: требуется для подписки на событие "dialog". Этот модуль генерирует тела сообщений application/dialog-info.
 
 Если вы не уверены какое событие или какой тип тела используется вашим устройством для подписки на присутствие, обратитесь к руководству производителя устройства для получения дополнительной информации.
 
