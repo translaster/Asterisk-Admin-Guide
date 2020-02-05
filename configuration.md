@@ -27,7 +27,7 @@ If you are unfamiliar with the core and modules concepts, take a look at the Ast
 
 ###### Возможности
 
-Драйвер канала pjsip Asterisk предоставляет те же возможности подписки на присутствие что и `chan_sip`. Это означает, что присутствие [RFC 3856](tools.ietf.org/html/rfc3856) и [RFC4235](www.rfc-editor.org/rfc/rfc4235.txt) поддерживаются диалоговые данные. Подписки на присутствие поддерживают тела [RFC 3863](https://tools.ietf.org/html/rfc3863) PIDF+XML, а также [XPIDF+XML](https://tools.ietf.org/html/draft-rosenberg-impp-pidf-00). Кроме того, Asterisk также поддерживает подписку на списки ресурсов присутствия [RFC 4662](https://tools.ietf.org/html/rfc4662).
+Драйвер канала pjsip Asterisk предоставляет те же возможности подписки на присутствие что и `chan_sip`. Это означает, что присутствие [RFC 3856](http://tools.ietf.org/html/rfc3856) и [RFC4235](http://www.rfc-editor.org/rfc/rfc4235.txt) поддерживаются диалоговые данные. Подписки на присутствие поддерживают тела [RFC 3863](https://tools.ietf.org/html/rfc3863) PIDF+XML, а также [XPIDF+XML](https://tools.ietf.org/html/draft-rosenberg-impp-pidf-00). Кроме того, Asterisk также поддерживает подписку на списки ресурсов присутствия [RFC 4662](https://tools.ietf.org/html/rfc4662).
 
 ###### Конфигурация
 
