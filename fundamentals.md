@@ -155,55 +155,54 @@ For a quick CLI example, once you have defined some hints, you can easily check 
 
 In this example I was lazy, so they don't have real providers mapped otherwise you would see various states represented.
 
-##### SIP Subscription to Asterisk hints
+##### SIP-подписка на Asterisk hints
 
-Once a hint is configured, Asterisk's SIP drivers can be configured to allow SIP User Agents to subscribe to the hints. A subscription will result in state change notifications being sent to the subscriber.
+После настройки подсказки драйверы SIP Asterisk можно настроить так, чтобы разрешить агентам пользователей SIP подписываться на подсказки. Подписка приведет к отправке подписчику уведомлений об изменении состояния.
 
-Configuration for chan_sip is discussed in Configuring chan_sip for Presence Subscriptions
+Конфигурация для chan_sip обсуждается в разделе Настройка chan_sip для подписок на присутствие
 
-Configuration for res_pjsip is discussed in Configuring res_pjsip for Presence Subscriptions
+Настройка res_pjsip обсуждается в разделе [Настройка res_pjsip для подписок на присутствие](configuration.md#настройка-res_pjsip-для-подписок-на-присутствие)
 
-#### Presence State
+#### Состояние присутствия
 
-##### Overview
+##### Обзор
 
-Asterisk 11 has been outfitted with support for presence states. An easy way to understand this is to compare presence state support to the device state support Asterisk has always had. Like with device state support, Asterisk has a core API so that modules can register themselves as presence state providers, alert others to changes in presence state, and query the presence state of others. The difference between the device and presence state concepts is made clear by understanding the subject of state for each concept.
+Asterisk 11 был оснащен поддержкой состояний присутствия. Простой способ понять это - сравнить поддержку состояния присутствия с поддержкой состояния устройства, которая всегда была у Asterisk. Как и в случае с поддержкой состояния устройства, Asterisk имеет базовый API, позволяющий модулям регистрироваться в качестве поставщиков состояния присутствия, оповещать других об изменениях состояния присутствия и запрашивать состояние присутствия других. Различие между понятиями устройства и состояния присутствия становится ясным благодаря пониманию субъекта состояния для каждого понятия.
 
-* Device state reflects the current state of a physical device connected to Asterisk
-* Presence state reflects the current state of the user of the device
+* Состояние устройства отражает текущее **состояние физического устройства**, подключенного к Asterisk.
+* Состояние присутствия отражает текущее **состояние пользователя** устройства .
 
-For example, a device may currently be not in use but the person is away. This can be a critical detail when determining the availability of the person.
+Например, **устройство** может в данный момент не использоваться (состояние `not in use`), но **человек** отсутствует (`away`). Это может быть важной деталью при определении доступности **человека**.
 
-While the architectures of presence state and device state support in Asterisk are similar, there are some key differences between the two.
+Хотя архитектуры поддержки состояния присутствия и состояния устройства в Asterisk схожи, между ними есть некоторые ключевые различия.
 
-* Asterisk cannot infer presence state changes the same way it can device state changes. For instance, when a SIP endpoint is on a call, Asterisk can infer that the device is being used and report the device state as in use. Asterisk cannot infer whether a user of such a device does not wish to be disturbed or would rather chat, though. Thus, all presence state changes have to be manually enacted.
-* Asterisk does not take presence into consideration when determining availability of a device. For instance, members of a queue whose device state is busy will not be called; however, if that member's device is not in use but his presence is away then Asterisk will still attempt to call the queue member.
-* Asterisk cannot aggregate multiple presence states into a single combined state. Multiple device states can be listed in an extension's hint priority to have a combined state reported. Presence state support in Asterisk lacks this concept.
+* Asterisk не может сделать вывод об изменениях состояния присутствия так же, как и об изменениях состояния устройства. Например, когда конечная точка SIP находится в состоянии вызова, Asterisk может сделать вывод, что устройство используется, и сообщить о состоянии устройства как о используемом (`in use`). Однако Asterisk не может определить, не хочет ли пользователь такого устройства, чтобы его беспокоили, или предпочитает общаться в чате. Таким образом, все изменения состояния присутствия должны выполняться вручную.
+* Asterisk не учитывает присутствие при определении доступности устройства. Например, участники очереди, состояние устройства которых `busy`, не будут вызваны; однако, если устройство этого участника `not in use`, но его присутствие `away`, Asterisk все равно попытается вызвать этого участника очереди.
+* Asterisk не может объединить несколько состояний присутствия в одно объединенное состояние. Несколько состояний устройства могут быть перечислены в приоритете подсказки (hint) расширения, чтобы иметь отчет о комбинированном состоянии. Наличие поддержки состояния в Asterisk лишено этой концепции.
 
-##### Presence States
+##### Состояния присутствия
 
-* `not_set`: No presence state has been set for this entity.
-* `unavailable`: This entity is present but currently not available for communications.
-* `available`: This entity is available for communication.
-* `away`: This entity is not present and is unable to communicate.
-* `xa`: This entity is not present and is not expected to return for a while.
-* `chat`: This entity is available to communicate but would rather use instant messaging than speak.
-* `dnd`: This entity does not wish to be disturbed.
+* `not_set`: для этой сущности не задано состояние присутствия.
+* `unavailable`: этот объект присутствует, но в настоящее время недоступен для связи.
+* `available`: эта сущность доступна для связи.
+* `away`: эта сущность отсутствует и не может общаться.
+* `xa`: эта сущность отсутствует и, как ожидается, не вернется в течение некоторого времени.
+* `chat`: эта сущность доступна для общения, но предпочитает использовать мгновенные сообщения, а не говорить.
+* `dnd`: эта сущность не желает, чтобы ее беспокоили.
 
-##### Subtype and Message
+##### Подтип и сообщение
 
-In addition to the basic presence states provided, presence also has the concept of a subtype and a message.
+В дополнение к основным состояниям присутствия, представленным, присутствие также имеет понятие **подтипа** и **сообщения**.
 
-The subtype is a brief method of describing the nature of the state. For instance, a subtype for the away status might be "at home".
+Подтип - это краткий метод описания природы состояния. Например, подтип для статуса `away` может быть "at home".
 
-The message is a longer explanation of the current presence state. Using the same away example from before, the message may be "Sick with the flu. Out
-until the 18th".
+Сообщение представляет собой более длинное объяснение текущего состояния присутствия. Используя тот же пример из прошлого, сообщение может быть "Болен гриппом. Ушел до 18-го".
 
 ##### func_presencestate And The CustomPresence Provider
 
-The only provider of presence state in Asterisk 11 is the CustomPresence provider. This provider is supplied by the func_presencestate.so module, which grants access to the PRESENCE_STATE dialplan function. The documentation for PRESENCE_STATE can be found here. CustomPresence is device-agnostic within the core and can be a handy way to set and query presence from dialplan, or APIs such as the AMI.
+Единственным поставщиком состояния присутствия в Asterisk 11 является поставщик `CustomPresence`. Этот поставщик ппредоставляется модулем `func_presencestate.so`, предоставляющим доступ к функции диалплана `PRESENCE_STATE`. Документацию по `PRESENCE_STATE` можно найти [здесь](https://wiki.asterisk.org/wiki/display/AST/Asterisk+11+Function_PRESENCE_STATE). `CustomPresence` не зависит от устройства в ядре и может быть удобным способом установить и запросить присутствие из диалплана или API, таких как AMI.
 
-A simple use case for CustomPresence in dialplan is demonstrated below.
+Простой пример использования `CustomPresence` в диалплане показан ниже.
 
 ```
 [default]
@@ -220,19 +219,17 @@ same => n,Dial(SIP/Bob)
 same => n(voicemail)VoiceMail(Bob@default)
 ```
 
-With this dialplan, a user can dial 2000@default to toggle Bob's presence between available and unavailable. When a user attempts to call Bob
-using 2001@default, if Bob's presence is currently not available then the call will go directly to voicemail.
+С помощью этого диалплана пользователь может набрать `2000@default` для переключения присутствия Боба между `available` и `unavailable`. Когда пользователь пытается позвонить Бобу, используя `2001@default`, если присутствие Боба в данный момент `unavailable`, то вызов будет отправлен непосредственно на голосовую почту.
 
 ---
-One thing to keep in mind with the PRESENCE_STATE dialplan function is that, like with DEVICE_STATE, state may be queried from any
-presence provider, but PRESENCE_STATE is only capable of setting presence state for the CustomPresence presence state provider.
+Одна вещь, которую следует иметь в виду с функцией диалплана `PRESENCE_STATE`, состоит в том, что, как и с `DEVICE_STATE`, состояние может быть запрошено у любого поставщика присутствия, но `PRESENCE_STATE` способен только устанавливать состояние присутствия для поставщика состояния присутствия `CustomPresence`.
 ---
 
-##### Configuring Presence Subscription with Hints
+##### Настройка подписки на присутствие с хинтами
 
-As is mentioned in the phone support section, at the time of writing this will only work with a Digium phone.
+Как уже упоминалось в разделе поддержки телефона, на момент написания статьи это будет работать только с телефонами Digium.
 
-Like with device state, presence state is associated to a dialplan extension with a hint. Presence state hints come after device state in the hint extension and are separated by a comma (,). As an example:
+Как и в случае с состоянием устройства, состояние присутствия связывается с расширением диалплана с помощью хинта (подсказки). Хинты состояния присутствия следуют за состоянием устройства в расширении хинта и разделяются запятой (,). В качестве примера:
 
 ```
 [default]
@@ -241,20 +238,19 @@ exten => 2000,1,Dial(SIP/2000)
 same => n,Hangup()
 ```
 
-Or alternatively, you could define the presence state provider without a device.
+Или же можно определить поставщика состояния присутствия без устройства.
 
 ```
 exten => 2000,hint,,CustomPresence:2000
 ```
 
-The first example would allow for someone subscribing to the extension state of 2000@default to be notified of device state changes for device SIP/20
-00 as well as presence state changes for the presence provider CustomPresence:2000.
+**Первый** пример позволит пользователю, подписавшемуся на состояние расширения `2000@default`, получать уведомления об изменениях состояния устройства для устройства `SIP/2000`, а также изменения состояния присутствия для поставщика присутствия `CustomPresence:2000`.
 
-The second example would allow for the subscriber to receive notification of state changes for only the presence provider CustomPresence:2000.
+**Второй** пример позволит абоненту получать уведомления об изменениях состояния только для поставщика присутствия `CustomPresence:2000`.
 
-The CustomPresence presence state provider will be discussed further on this page.
+Поставщик состояния присутствия `CustomPresence` будет обсуждаться далее на этой странице.
 
-Also like with device state, there is an Asterisk Manager Interface command for querying presence state. Documentation for the AMI PresenceState command can be found here.
+Также, как и в случае с состоянием устройства, существует команда AMI для запроса состояния присутствия. Документацию по команде AMI PresenceState можно найти [здесь](https://wiki.asterisk.org/wiki/display/AST/Asterisk+11+ManagerAction_PresenceState).
 
 ##### Example Presence Notification
 

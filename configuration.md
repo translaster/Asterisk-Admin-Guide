@@ -26,7 +26,8 @@ If you are unfamiliar with the core and modules concepts, take a look at the Ast
 ##### chan_sip State and Presence Options
 
 ###### Device State
-There are a few configuration options for chan_sip that affect Device State behavior.
+
+Существует несколько вариантов конфигурации chan_sip, которые влияют на поведение состояния устройства.
 
 **callcounter**
 
@@ -375,9 +376,9 @@ Peer User Call ID Extension Last state Type Mailbox Expiry
 From this point onward, Asterisk should send out a SIP NOTIFY to the Alice peer whenever state changes for any of the devices mapped to the hint 6001.
 Alice's phone should then reflect that state on its display.
 
-#### Configuring res_pjsip
+#### Настройка res_pjsip
 
-##### Configuring res_pjsip for Presence Subscriptions
+##### Настройка res_pjsip для подписок на присутствие
 
 Раздел в разработке - эта страница не завершена!
 
