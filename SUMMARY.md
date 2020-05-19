@@ -198,7 +198,7 @@ Upgrading AsteriskNOW Version 5.211.65
 
 [Configuration](configuration.md)
 
-        [Core Configuration](configuration.md#core-configuration)
+* [Core Configuration](configuration.md#core-configuration)
 
             Asterisk Main Configuration File
 
@@ -220,79 +220,49 @@ Upgrading AsteriskNOW Version 5.211.65
 
             Named ACLs
 
-        [Channel Drivers](configuration.md#channel-drivers)
-
-            [SIP](configuration.md#sip)
-
-                [Configuring chan_sip](configuration.md#configuring-chan_sip)
-
-                    chan_sip State and Presence Options
-
-                    Configuring chan_sip for IPv6
-
-                    Configuring chan_sip for Presence Subscriptions
-
-                [Configuring res_pjsip](configuration.md#configuring-res_pjsip)
-
-                    PJSIP Configuration Sections and Relationships
-
-                    res_pjsip Configuration Examples
-
-                    Migrating from chan_sip to res_pjsip
-
-                    Dialing PJSIP Channels
-
-                    Configuring res_pjsip to work through NAT
-
-                    Setting up PJSIP Realtime
-
-                    Exchanging Device and Mailbox State Using PJSIP
-
-                    [Configuring res_pjsip for Presence Subscriptions](configuration.md#configuring-res_pjsip-for-presence-subscriptions)
-
-                    Resource List Subscriptions (RLS)
-
-                    Configuring Outbound Registrations
-
-                    Asterisk PJSIP Troubleshooting Guide
-
-                    res_pjsip Remote Attended Transfers
-
-                    PJSIP Transport Selection
-
-                    PJSIP Configuration Wizard
-
-                    Configuring res_pjsip for IPv6
-
-                    Publishing Extension State
-
-                Real-time Text (T.140)
-
-            Inter-Asterisk eXchange protocol, version 2 (IAX2)
-
-                Why IAX2?
-                Introduction to IAX2
-                IAX2 Configuration
-                    Configuring chan_iax2 for IPv6
-                IAX2 Jitterbuffer
-                IAX2 Security
-            [DAHDI](configuration.md#dahdi)
-
-            [Local Channel](configuration.md#local-channel)
-
-                Local Channel Examples
-                    Delay Dialing Devices Example
-                    Dialing Destinations with Different Information
-                    Trivial Local Channel Example
-                    Using Callfiles and Local Channels
-                Local Channel Optimization
-                Local Channel Modifiers
-
-            [Motif](configuration.md#motif)
-
-                Calling using Google
-
-            [mISDN](configuration.md#misdn)
+* [Channel Drivers](configuration.md#channel-drivers)
+  - [SIP](configuration.md#sip)
+    - [Configuring chan_sip](configuration.md#configuring-chan_sip)
+      - chan_sip State and Presence Options
+      - Configuring chan_sip for IPv6
+      - Configuring chan_sip for Presence Subscriptions
+    - [Configuring res_pjsip](configuration.md#configuring-res_pjsip)
+      - PJSIP Configuration Sections and Relationships
+      - res_pjsip Configuration Examples
+      - Migrating from chan_sip to res_pjsip
+      - Dialing PJSIP Channels
+      - Configuring res_pjsip to work through NAT
+      - Setting up PJSIP Realtime
+      - [Exchanging Device and Mailbox State Using PJSIP](configuration.md#обмен-состоянием-устройств-и-почтового-ящика-с-помощью-pjsip)
+      - [Configuring res_pjsip for Presence Subscriptions](configuration.md#configuring-res_pjsip-for-presence-subscriptions)
+      - Resource List Subscriptions (RLS)
+      - Configuring Outbound Registrations
+      - Asterisk PJSIP Troubleshooting Guide
+      - res_pjsip Remote Attended Transfers
+      - PJSIP Transport Selection
+      - PJSIP Configuration Wizard
+      - Configuring res_pjsip for IPv6
+      - [Publishing Extension State](configuration.md#публикация-состояний-расширений)
+      - Real-time Text (T.140)
+  - Inter-Asterisk eXchange protocol, version 2 (IAX2)
+    - Why IAX2?
+    - Introduction to IAX2
+    - IAX2 Configuration
+        - Configuring chan_iax2 for IPv6
+    - IAX2 Jitterbuffer
+    - IAX2 Security
+  - [DAHDI](configuration.md#dahdi)
+  - [Local Channel](configuration.md#local-channel)
+    - Local Channel Examples
+    - Delay Dialing Devices Example
+    - Dialing Destinations with Different Information
+      - Trivial Local Channel Example
+      - Using Callfiles and Local Channels
+      - Local Channel Optimization
+      - Local Channel Modifiers
+  - [Motif](configuration.md#motif)
+    - Calling using Google
+  - [mISDN](configuration.md#misdn)
 
                 Introduction to mISDN
                 mISDN Features
